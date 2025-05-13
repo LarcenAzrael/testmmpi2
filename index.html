@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Test MMPI-2 Adaptado INPEC</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #e6f0fa; padding: 20px; }
+    .logo { text-align: center; margin-bottom: 20px; }
+    .logo img { width: 120px; }
+    h1 { color: #003366; text-align: center; }
+    .pregunta { background: white; border-radius: 10px; padding: 15px; margin: 10px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    label { display: block; margin: 5px 0; }
+    .boton { background: #003366; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <div class="logo">
+    <img src="LOGO-STPC.jpg" alt="Logo STPC">
+  </div>
+  <h1>Test de Personalidad Adaptado - INPEC</h1>
+  <form id="formulario">
+    <script>
+      const preguntas = [
+  "Me gustan las revistas de mecánica.",
+  "Tengo buen apetito.",
+  "Creo que me gustaría el trabajo de bibliotecario.",
+  "En mi vida diaria hay muchas cosas que me resultan interesantes.",
+  "A veces he deseado muchísimo abandonar el hogar.",
+  "Me cuesta bastante concentrarme en una tarea o trabajo.",
+  "Mi madre es una buena mujer, (o si ya ha fallecido) mi madre fue una buena mujer.",
+  "Cuando tengo algún problema me alivia hablarlo con alguien.",
+  "A menudo me he sentido culpable porque he fingido mayor pesar del que realmente sentía.",
+  "Cuesta mucho trabajo convencer a la mayoría de la gente de la verdad.",
+  "Me gusta mucho ir al baile.",
+  "A menudo siento que puedo leer la mente de los demás.",
+  "A veces insisto tanto en una cosa que los demás pierden la paciencia conmigo.",
+  "A veces estoy poseído por espíritus diabólicos.",
+  "La mayor parte del tiempo me parece tener un nudo en la garganta.",
+  "A veces siento ganas de maldecir.",
+  "Soy una persona muy sociable.",
+  "Siento debilidad general la mayor parte del tiempo.",
+  "Mis familiares y parientes más cercanos se llevan bastante bien.",
+  "Me siento incómodo en lugares cerrados.",
+  "En algunas ocasiones, cuando era joven, robé algunas cosas.",
+  "Me gustaría ser tan feliz como parecen ser los demás.",
+  "A veces siento deseos de destrozar las cosas.",
+  "En una discusión o debate me dejo vencer fácilmente.",
+  "Actualmente tengo tanta capacidad de trabajo como antes.",
+  "Cuando alguien me hace una faena siento deseos de devolvérsela, si me es posible; y esto, por cuestión de principios.",
+  "Frecuentemente pierdo o desaprovecho oportunidades por no decidirme a tiempo.",
+  "Normalmente tengo bastante calientes los pies y las manos.",
+  "Me afectan tanto los desengaños que luego no puedo alejarlos de mi pensamiento.",
+  "La mayor parte del tiempo me siento triste.",
+  "Actualmente no comprendo lo que leo con la misma facilidad de antes.",
+  "He tenido experiencias muy peculiares y extrañas.",
+  "Casi siempre tengo tos.",
+  "Los fantasmas o los espíritus pueden influir sobre la gente para bien o para mal.",
+  "Frecuentemente tengo que esforzarme para no demostrar que soy tímido.",
+  "Pienso que una gran mayoría de la gente exagera sus desgracias para lograr la simpatía y ayuda de los demás.",
+  "Mis sentimientos no son heridos fácilmente.",
+  "Nunca he tenido dificultades a causa de mi comportamiento sexual.",
+  "Con frecuencia he tenido que recibir órdenes de personas que sabían menos que yo.",
+  "En muchas ocasiones me gustaría sentarme y soñar despierto antes que hacer cualquier cosa.",
+  "Algunas veces disfruto hiriendo a personas que amo.",
+  "Me gustaría ser militar.",
+  "Sufro ataques de náuseas y vómitos.",
+  "Me es difícil entablar una conversación cuando conozco a alguien por primera vez.",
+  "No digo siempre la verdad.",
+  "Cuando estoy con gente me molesta oír cosas muy extrañas.",
+  "Me gusta asistir a reuniones o fiestas animadas y alegres.",
+  "Sin duda alguna no tengo confianza en mí mismo.",
+  "He disfrutado tomando drogas.",
+  "Me gustaría ser cantante.",
+  "He tenido miedo de cosas o personas que sabía que no podían hacerme daño.",
+  "Muy rara vez sufro de estreñimiento.",
+  "A veces estoy lleno de energía.",
+  "Una de las cosas que más temo son los relámpagos.",
+  "Creo que la mayoría de la gente mentiría con tal de conseguir lo que quiere.",
+  "Me pongo nervioso e inquieto cuando tengo que hacer un viaje corto.",
+  "Me gustan las reuniones sociales por el simple hecho de estar con gente.",
+  "Alguno de mis familiares tiene costumbres que me molestan y me irritan muchísimo.",
+  "Mi memoria parece estar en buenas condiciones.",
+  "Frecuentemente encuentro necesario defender lo q es justo.",
+  "Nunca he hecho algo peligroso sólo por la emoción hacerlo.",
+  "Hago muchas cosas de las que luego me arrepiento (Me arrepiento más frecuentemente que otras personas de las cosas que hago).",
+  "A menudo me ha dado la sensación de que gente extraña me estaba mirando con ojos críticos.",
+  "Soy una persona importante.",
+  "Casi nunca me ha dolido el pecho o el corazón.",
+  "En el colegio, algunas veces, fui enviado al director causa de mi mal comportamiento.",
+  "No me gusta tener gente a mi alrededor.",
+  "Normalmente tengo que detenerme a pensar antes actuar, incluso en asuntos sin importancia.",
+  "Mis manos no se han vuelto torpes ni he perdido habilidad.",
+  "Diariamente no leo todos los artículos editoriales d periódico.",
+  "Creo que están tramando algo contra mí.",
+  "A veces mis pensamientos han ido más deprisa y p delante de mis palabras.",
+  "Creo que no soy más nervioso que la mayoría de la gente.",
+  "Muchas veces siento haber hecho algo malo o erróneo.",
+  "Creo que me gustaría trabajar de guardabosques.",
+  "Me molesta el estómago varias veces a la semana.",
+  "Soy tan susceptible respecto a algunos temas que ni siquiera puedo hablar de ellos.",
+  "Aparentemente oigo tan bien como la mayoría de la gente.",
+  "A menudo tengo pesadillas por las noches.",
+  "Tengo muy pocos disgustos con los miembros de mi familia.",
+  "A veces me dan ataques de risa y llanto que no puedo controlar.",
+  "Las serpientes no me dan mucho miedo.",
+  "Normalmente siento que la vida vale la pena vivirla.",
+  "A veces siento deseos de liarme a puñetazos con alguien.",
+  "Nunca he tenido visiones.",
+  "Solamente cuando bebo puedo expresar mis verdaderos sentimientos.",
+  "La mayoría de la gente es honrada por temor a ser descubierto.",
+  "Muy raras veces siento dolor en la nuca.",
+  "Ciertamente a veces siento que soy un inútil.",
+  "Temo encontrarme en un lugar pequeño o cerrado.",
+  "Me siento avergonzado con facilidad.",
+  "Creo que me están persiguiendo.",
+  "Recientemente he pensado en matarme.",
+  "No me importa conocer personas extrañas.",
+"De vez en cuando dejo para mañana lo hacer hoy.",
+"A menudo mis padres han puesto reparos al tipo de gente con el que me juntaba.",
+"Me gusta conocer a gente importante porque esto me hace sentir importante.",
+"Quiero a mi padre, (o si ya ha fallecido) quise a mi padre.",
+"La mayoría de la gente utilizaría medios algo injustos para no perder un beneficio o ventaja.",
+"Me gusta la poesía.",
+"La mayor parte del tiempo parece dolerme la cabeza por todas partes.",
+"Me parece que soy tan listo y capaz como la mayor parte de los que me rodean.",
+"De vez en cuando siento odio hacia familiares que normalmente quiero.",
+"Como norma defiendo firmemente mis propias opiniones.",
+"Casi siempre soy feliz.",
+"He tenido épocas durante las cuales he realizado actividades que luego no recordaba haber hecho.",
+"Me gusta hablar sobre temas sexuales.",
+"En varias ocasiones he dejado de hacer algo porque he dudado de mi habilidad.",
+"Me gusta la animación de una multitud.",
+"Creo que frecuentemente he sido castigado sin motivo alguno.",
+"Creo que me gustaría el trabajo de contratista de obras.",
+"Tiendo a dejar algo que deseo hacer cuando los demás piensan que no es la manera correcta de hacerlo.",
+"Nunca o rara vez tengo espasmos o calambres musculares.",
+"Me gustaría no ser tan tímido.",
+"El fuego no me da miedo.",
+"Tiendo a tomarme las cosas demasiado en serio.",
+"Algo no marcha bien en mi cabeza.",
+"Me gusta coquetear.",
+"Pierdo fácilmente la paciencia con la gente.",
+"Muchísimas veces me gustaría estar muerto.",
+"Es más seguro no confiar en nadie.",
+"He tenido ataques en los que perdía el control de mis movimientos o de la palabra, pero sabía lo que pasaba a mi alrededor",
+"Me preocupo mucho por posibles desgracias.",
+"Nunca he estado enamorado.",
+"Mi manera de hablar es como siempre (ni más rápida, ni más lenta, ni balbuceante, ni ronca).",
+"Me gustaba ir al colegio.",
+"Algunas veces me enfado.",
+"No me da miedo manejar dinero.",
+"Alguien ha estado intentando envenenarme.",
+"Me preocupo mucho por las cosas.",
+"Cuando estoy aburrido me gusta provocar algo excitante o divertido.",
+"A menudo cruzo la calle para evitar encontrarme con alguna persona.",
+"Para mí todo tiene el mismo sabor o gusto.",
+"No me enfado fácilmente.",
+"Me molesta mucho pensar en hacer cambios en mi vida.",
+"No puedo concentrarme en una sola cosa.",
+"La mayor parte del tiempo mi cabeza o mi nariz parecen estar congestionadas.",
+"Mis padres y familiares encuentran más defectos en mí de los que debieran.",
+"A menudo oigo voces sin saber de dónde vienen.",
+"Disfruto con muy diferentes clases de juegos y diversiones.",
+"He abusado de bebidas alcohólicas.",
+"La mayor parte de la gente hace amigos porque es probable que le sean útiles.",
+"A veces he estorbado a alguien que trataba de hacer algo, no porque eso importara mucho, sino por cuestión de principios.",
+"Me cuesta empezar a hacer cualquier cosa.",
+"Me gustaría ser florista.",
+"Casi todos los días ocurre algo que me asusta.",
+"Me gusta que la gente conozca mi punto de vista sobre las cosas.",
+"Me gusta mucho cazar.",
+"Algunas veces me ronda por la cabeza un pensamiento sin importancia y me molesta durante días.",
+"Alguien ha estado intentando robarme.",
+"Les temporales de viento muy fuerte me atemorizan.",
+"Cuando las cosas van mal, fácilmente tiendo a darme por vencido.",
+"Mis preocupaciones parece que desaparecen cuando estoy con un grupo de amigos.",
+"Mis modales en la mesa no son tan correctos en mi casa como cuando salgo a comer fuera.",
+"Me enfado fácilmente, pero se me pasa pronto.",
+"Recuerdo haber fingido estar enfermo para evitar algo.",
+"Cualquier persona que sea capaz y esté dispuesta a trabajar duro, tiene muchas probabilidades de obtener éxito.",
+"A menudo la vida me resulta difícil.",
+"He tenido momentos de tanta turbación que interrumpí mis actividades y no sabía qué estaba ocurriendo a mi alrededor.",
+"A veces me siento capaz de tomar decisiones con extraordinaria facilidad.",
+"Se me ocurren palabras feas, a veces horribles, y no puedo deshacerme de ellas.",
+"Nunca o rara vez tengo mareos.",
+"Casi siempre me levanto por las mañanas descansado y como nuevo.",
+"Últimamente he estado pensando mucho en suicidarme.",
+"A menudo tengo miedo de la oscuridad.",
+"Algunas veces, sin razón alguna, o incluso cuando las cosas me van mal, me siento animadamente feliz, como «flotando entre nubes».",
+"Me pone nervioso tener que esperar.",
+"Hay personas que están intentando apoderarse de mis pensamientos e ideas.",
+"No tengo ninguna esperanza en mi porvenir.",
+"Puedo dormir de día, pero no por la noche.",
+"Pienso que casi todo el mundo mentiría para evitarse problemas.",
+"Con frecuencia, incluso cuando todo me va bien, siento que nada me importa.",
+"Me pegaron mucho cuando era niño.",
+"Durante los últimos años he gozado casi siempre de buena salud.",
+"Nunca soy tan feliz como cuando estoy solo.",
+"A menudo siento como si tuviera una venda puesta fuertemente alrededor de mi cabeza.",
+"Por lo general no le hablo a la gente mientras no me hablan primero.",
+"Sería mejor si se anulasen casi todas las leyes.",
+"Algunas veces pierdo o me cambia la voz, aunque no esté resfriado.",
+"Algunos de mis familiares han hecho ciertas cosas que me han asustado.",
+"Me pongo muy excitado una vez por semana o con más frecuencia.",
+"Soy una persona plenamente segura de mí misma.",
+"En un juego o partida me gusta más ganar que perder.",
+"No le temo al agua.",
+"A la mayor parte de la gente le molesta ayudar a los demás, aunque no lo diga.",
+"Nunca he sufrido un ataque o convulsiones.",
+"A veces he sentido que las dificultades me abrumaban hasta tal punto que no podía superarlas.",
+"Si fuera periodista me gustaría mucho hacer reportajes sobre deportes.",
+"Me duele la cabeza muy pocas veces.",
+"Nunca he tenido problemas con la ley.",
+"Cuando camino evito cuidadosamente pisar las rayas o grietas de la acera.",
+"Después de un mal día, generalmente necesito tomar un poco de alcohol para relajarme.",
+"A veces me ha divertido tanto el ingenio de un pícaro que he deseado que tuviera éxito.",
+"Estoy seguro de que la gente habla de mí.",
+"Cuando me siento abatido, algo emocionante me saca casi siempre de ese estado.",
+"Me gustan los dramas.",
+"Generalmente les hablo claras a las personas que estoy intentando corregir o mejorar.",
+"Me acobarde ante las dificultades o crisis.",
+"A veces percibo olores muy raros.",
+"Es más difícil para mí concentrarme de lo que parece ser para otras personas.",
+"Me gustan las fiestas y reuniones sociales.",
+"Nunca en mi vida me he sentido mejor que ahora.",
+"A veces mi alma abandona mi cuerpo.",
+"Incluso cuando estoy con gente, me siento solo la mayor parte del tiempo.",
+"Cuando era un muchacho frecuentemente hacia novillos en clase.",
+"Quisiera poder olvidarme de cosas que he dicho y que quizás hayan herido los sentimientos de otras personas.",
+"Tengo épocas en las que me siento más animado que de costumbre sin que exista una razón especial.",
+"Me da miedo utilizar cuchillos u objetos muy afilados o puntiagudos.",
+"Sin duda he tenido que preocuparme por más cosas de las que me correspondían.",
+"Tengo molestias en la boca del estómago casi a diario.",
+"No me agradan todas las personas que conozco.",
+"No tengo enemigos que deseen realmente hacerme daño.",
+"Normalmente la gente pide más respeto para sus propios derechos que el que está dispuesto a conceder a los demás.",
+"Aunque no estoy contento con mi vida, ya no puedo hacer nada para cambiarla.",
+"Frecuentemente discrepo profundamente de personas muy próximas a mí.",
+"A veces oigo tan bien que me llega a molestar.",
+"Muy rara vez tengo momentos de abatimiento.",
+"A veces no he podido evitar el robar algo o llevarme algo de una tienda.",
+"Algunas veces me siento tan inquieto que me cuesta dormirme por las noches.",
+"No temo a las arañas.",
+"Creo en la obligación o exigencia de la ley.",
+"Me parece que hago amigos tan fácilmente como los demás.",
+"Cuando era joven me echaron de clase una o más veces por mi mal comportamiento.",
+"Siempre tengo muy poco tiempo para hacer las cosas.",
+"Me han dicho que camino cuando estoy dormido.",
+"Me gustaría ser piloto de competiciones automovilísticas.",
+"No he tenido dificultades para mantener el equilibrio al caminar.",
+"La mayor parte del tiempo me siento preocupado por algo o alguien.",
+"Me inclino a dejar de hacer algo que deseo cuando los demás piensan que no vale la pena realizarlo.",
+"Tengo muchos problemas con el estómago.",
+"Fácilmente puedo atemorizar a la gente, y a veces lo hago por diversión.",
+"A veces pienso que no valgo para nada.",
+"La gente dice cosas ofensivas y vulgares de mí.",
+"En estos días no estoy sintiendo mucha presión o estrés.",
+"Me molesta que la gente me mire en la calle, en el autobús, en las tiendas, etc.",
+"No me agrada oír a la gente dar opiniones sobre la vida.",
+"Nunca tomo drogas o pastillas para dormir, a no ser por orden del médico.",
+"Cuando un hombre está con una mujer, generalmente está pensando cosas relacionadas con el sexo.",
+"Si me dieran la oportunidad podría ser un buen líder.",
+"Con frecuencia siento como si las cosas no fueran reales.",
+"A veces chismorreo un poco.",
+"A veces siento dolorida la parte superior de la cabeza.",
+"La suciedad me espanta o me disgusta.",
+"Si me dieran la oportunidad, podría hacer algunas cosas que beneficiarían mucho a la humanidad.",
+"Si fuera periodista me gustaría mucho escribir sobre teatro.",
+"Normalmente espero tener éxito en las cosas que hago.",
+"Me siento cansado una buena parte del tiempo.",
+"Frecuentemente me dicen que tengo mal genio.",
+"En el colegio me costaba mucho hablar delante de los demás.",
+"Frecuentemente me lamento por tener mal genio o ser tan gruñón.",
+"Nadie lo sabe, pero he intentado suicidarme.",
+"Alguien controla mi mente.",
+"En el colegio, mis calificaciones en conducta fueron generalmente malas.",
+"Rara vez noto los latidos de mi corazón y pocas veces se me corta la respiración.",
+"Personalmente no me molesta ver sufrir a los animales.",
+"Con frecuencia me he encontrado con personas supuestamente expertas, que no resultaron ser mejores que yo.",
+"Tengo pensamientos extraños y raros.",
+"Me aterroriza la idea de un terremoto.",
+"Me gusta reparar las cerraduras de las puertas.",
+"Frecuentemente he trabajado bajo órdenes de personas que parecen haber arreglado las cosas de tal modo, que ellas son las que reciben el reconocimiento de una buena labor y, en cambio, son capaces de atribuir los errores a sus subordinados.",
+"A veces siento que estoy al borde de una crisis nerviosa.",
+"Tengo tan buena salud física como la mayor parte de mis amigos.",
+"Debo admitir que a veces he estado demasiado preocupado por algo sin importancia.",
+"Alguien me la tiene jurada.",
+"Tengo pocos o ningún dolor.",
+"Tengo problemas con las drogas o con el alcohol.",
+"He tenido épocas en las que me sentía tan animado que me parecía que, durante días, no necesitaría dormir.",
+"Nunca me preocupo por mi apariencia física.",
+"Cuando las cosas se ponen realmente mal, sé que puedo contar con la ayuda de mi familia.",
+"Una o más veces en mi vida he sentido que alguien, hipnotizándome, me obligaba a hacer algo.",
+"Me pone de mal humor que la gente me meta prisas.",
+"No tengo dificultades al tragar.",
+"Oigo cosas extrañas cuando estoy solo.",
+"Frecuentemente me cuesta decidir qué debo hacer.",
+"Varias veces a la semana siento como si fuera a suceder algo espantoso.",
+"Cuando alguien hace algo que me molesta, se lo hago saber.",
+"Frecuentemente noto intento hacer algo.",
+"Siempre que puedo, evito encontrarme entre mucha gente.",
+"La mayoría de los maridos son infieles a sus esposas de vez en cuando.",
+"A menudo me siento confundido y olvido lo que quiero decir.",
+"Mi familia me trata más como a un niño que como a un adulto.",
+"Los objetivos más importantes de mi vida están a mi alcance.",
+"A menudo es más provechoso hablar de los problemas y las preocupaciones con alguien, que tomar calmantes y medicamentos.",
+"Me da miedo estar solo en los lugares amplios y abiertos.",
+"A veces me parece que no puedo dejar de hablar.",
+"No tengo miedo a los ratones.",
+"Alguien ha tratado de influir en mi mente.",
+"A menudo siento que no soy tan bueno como otras personas.",
+"A menudo he sentido miedo durante la noche.",
+"Casi nunca noto que me zumben o me silben los oídos.",
+"Nunca me siento más feliz que cuando estoy solo.",
+"Me gusta tener a los demás intrigados acerca de lo que voy a hacer.",
+"Normalmente soy una persona tranquila y no me altero fácilmente.",
+"Veo a mi alrededor cosas, animales o personas que otros no ven.",
+"No me da miedo entrar solo en un salón donde hay gente reunida hablando.",
+"Me gustaría ser periodista.",
+"Una vez por semana, o con más frecuencia, me suelo emborrachar o drogar.",
+"En las elecciones, algunas veces voto a candidatos que conozco muy poco.",
+"Me siento incapaz cuando tengo que tomar una decisión importante.",
+"Realmente me gustan los deportes bruscos (como el rugby o el fútbol).",
+"Se me adormecen una o más partes de mi piel.",
+"Me gusta tomar decisiones y darle trabajo a los demás.",
+"Frecuentemente me irrito mucho cuando la gente interrumpe mi trabajo.",
+"En la mayoría de los matrimonios uno o ambos cónyuges son infelices.",
+"Me gustaría mucho vencer a un pillo con sus mismas armas."
+// Fin de las 324 preguntas.
+      ];
+
+      const formulario = document.getElementById('formulario');
+
+      preguntas.forEach((texto, i) => {
+        const div = document.createElement('div');
+        div.className = 'pregunta';
+        div.innerHTML = `<strong>${i + 1}.</strong> ${texto}<br>
+          <label><input type="radio" name="p${i}" value="0" required> No soy yo</label>
+          <label><input type="radio" name="p${i}" value="1"> Me describe de cierta manera</label>
+          <label><input type="radio" name="p${i}" value="2"> Me describe completamente</label>`;
+        formulario.appendChild(div);
+      });
+
+      const boton = document.createElement('button');
+      boton.type = 'submit';
+      boton.className = 'boton';
+      boton.textContent = 'Enviar';
+      formulario.appendChild(boton);
+
+      formulario.onsubmit = function(e) {
+  e.preventDefault();
+
+  let total = 0;
+  let respuestaAlta = 0;
+  let respuestaMedia = 0;
+  let respuestaBaja = 0;
+
+  preguntas.forEach((_, i) => {
+    const respuesta = document.querySelector(`input[name='p${i}']:checked`);
+    if (respuesta) {
+      const valor = parseInt(respuesta.value);
+      total += valor;
+      if (valor === 2) respuestaAlta++;
+      if (valor === 1) respuestaMedia++;
+      if (valor === 0) respuestaBaja++;
+    }
+  });
+
+  let mensaje = "<h2>Resultado del Test</h2>";
+  mensaje += `<p>Respuestas positivas (Me describe completamente): ${respuestaAlta}</p>`;
+  mensaje += `<p>Respuestas medias (Me describe de cierta manera): ${respuestaMedia}</p>`;
+  mensaje += `<p>Respuestas negativas (No soy yo): ${respuestaBaja}</p>`;
+
+  if (respuestaAlta > 220) {
+    mensaje += "<p><strong>Conclusión:</strong> Tu perfil muestra una alta afinidad con las características deseables para un Dragoneante del INPEC. Continúa fortaleciendo tu estabilidad emocional, disciplina y habilidades sociales.</p>";
+  } else if (respuestaMedia > 150) {
+    mensaje += "<p><strong>Conclusión:</strong> Tienes un perfil moderadamente ajustado al rol. Sería beneficioso mejorar la tolerancia al estrés, manejo de emociones y comunicación interpersonal.</p>";
+  } else {
+    mensaje += "<p><strong>Conclusión:</strong> Tu perfil aún requiere trabajo en áreas como autocontrol, toma de decisiones bajo presión y responsabilidad emocional. Considera acompañamiento psicológico o entrenamiento personal para acercarte al perfil deseado.</p>";
+  }
+
+  formulario.innerHTML = mensaje;
+}
+
+    </script>
+  </form>
+</body>
+</html>
